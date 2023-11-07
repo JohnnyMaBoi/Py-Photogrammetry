@@ -4,10 +4,16 @@ Module for image matching operations. It may include vocabulary tree constructio
 
 Image Matching Flowchart:
 
+MESHROOM
 Generate image descriptors using the vocabulary tree approach.
 Build image descriptors based on feature descriptors.
 Create image descriptors using the tree structure.
 Compare image descriptors to find similar images.
+
+THIS IMPLEMENTATION
+Start with a list of feature descriptors 
+Iterate through list and for each descriptor compute match with all other descriptors, keep best match
+For repeat matches, pick highest corresponding and then re-select the other match
 
 Useful Links:
 feature detection and matching/classifying project https://www.youtube.com/watch?v=nnH55-zD38I&list=PLMoSUbG1Q_r8jFS04rot-3NzidnV54Z2q&index=23"""

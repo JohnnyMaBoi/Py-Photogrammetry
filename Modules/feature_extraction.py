@@ -61,11 +61,10 @@ def descriptors_of_folder(folderpath, num_features=1000):
         keypoints , descriptors = extract_orb_features(os.path.join(folderpath, file), num_features)
         folder_descriptors.append(descriptors)
         folder_keypoints.append(keypoints)
-        print("processing")
-        print(folder_keypoints)
-        # TODO: uncomment this (was testing)
-    # if len(folder_descriptors)!=len(files):
-    #     raise Exception(f"Error in descriptor generation! Number of files {len(files)} does not match number descriptors {len(folder_descriptors)}")
+        # print("processing")
+        
+    if len(folder_descriptors)!=len(files):
+        raise Exception(f"Error in descriptor generation! Number of files {len(files)} does not match number descriptors {len(folder_descriptors)}")
     return folder_keypoints, folder_descriptors
     # loop through paths and apply orb, place feature descriptors into dict descriptor:filename
 

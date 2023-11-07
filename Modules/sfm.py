@@ -20,6 +20,7 @@ Iterate to add more cameras and 3D points until no more views can be localized.
 useful links:
 structure from motion with opencv and intrinsics: https://hub.packtpub.com/exploring-structure-motion-using-opencv/
 cv2.findFundamentalMat() python examples https://www.programcreek.com/python/example/89336/cv2.findFundamentalMat
+meshroom baseline https://meshroom-manual.readthedocs.io/en/latest/feature-documentation/nodes/StructureFromMotion.html
 
 """
 # Import necessary libraries
