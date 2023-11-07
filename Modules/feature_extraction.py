@@ -17,78 +17,83 @@ feature detection and matching/classifying project https://www.youtube.com/watch
 # Import necessary libraries
 import cv2
 import numpy as np
+import os
+# from PyQt5.QtCore import QLibraryInfo
+# os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
+#     QLibraryInfo.PluginsPath
+# )
 
 # Define global constants if needed
 # For example, if you have feature extraction parameters:
 # FEATURE_EXTRACTOR = cv2.SIFT_create()
 
 # Define module-level functions and classes
-def function1(arg1, arg2):
+def extract_orb_features(filepath, num_features):
     """
-    Description: (A brief description of what this function does.)
+    use ORB algorithm to extract features in an image and return a 1 elem dict with features list:image name
 
     Args:
-        arg1: (Description of arg1)
-        arg2: (Description of arg2)
-
+        filepath (str): path to the image file to be processed
+        num_features (int): 
     Returns:
-        (Description of what the function returns)
+        features (dict): 1 element dict mapping a list of features to the str name of the image
     """
-    # Implementation of the function
-    pass
+    img = cv2.imread(filepath)
 
-def extract_sift_features(image_path):
+    orb = cv2.ORB.create(nfeatures=num_features)
+
+    keypoints, descriptors = orb.detectAndCompute(img, None)
+    if keypoints:
+        return list(keypoints), list(descriptors)
+    
+    else:
+        raise Exception(f"filepath {filepath} failed to generate keypoints")
+
+def descriptors_of_folder(folderpath, num_features=1000):
     """
-    Extract SIFT features and descriptors from an image.
-
-    Args:
-        image_path (str): Path to the input image.
-
-    Returns:
-        keypoints (list): List of SIFT keypoints.
-        descriptors (numpy.ndarray): SIFT descriptors.
+    use feature extraction algorithm to create a list of all descriptors
     """
-    # Read the image
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    folder_descriptors = []
+    folder_keypoints = []
+    # generate list of paths to all files in folder
+    files = os.listdir(folderpath)
+    for file in files:
+        keypoints , descriptors = extract_orb_features(os.path.join(folderpath, file), num_features)
+        folder_descriptors.append(descriptors)
+        folder_keypoints.append(keypoints)
+        print("processing")
+        print(folder_keypoints)
+        # TODO: uncomment this (was testing)
+    # if len(folder_descriptors)!=len(files):
+    #     raise Exception(f"Error in descriptor generation! Number of files {len(files)} does not match number descriptors {len(folder_descriptors)}")
+    return folder_keypoints, folder_descriptors
+    # loop through paths and apply orb, place feature descriptors into dict descriptor:filename
 
-    # Create a SIFT feature extractor
-    sift = cv2.SIFT_create()
-
-    # Detect keypoints and compute descriptors
-    keypoints, descriptors = sift.detectAndCompute(image, None)
-
-    return keypoints, descriptors
-
-def extract_orb_features(image_path):
-    """
-    Extract ORB features and descriptors from an image.
-
-    Args:
-        image_path (str): Path to the input image.
-
-    Returns:
-        keypoints (list): List of ORB keypoints.
-        descriptors (numpy.ndarray): ORB descriptors.
-    """
-    # Read the image
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-
-    # Create an ORB feature extractor
-    orb = cv2.ORB_create()
-
-    # Detect keypoints and compute descriptors
-    keypoints, descriptors = orb.detectAndCompute(image, None)
-
-    return keypoints, descriptors
 
 # You can add more functions or code as needed
 
 # This block allows running the module as a script
 if __name__ == "__main__":
     # Example code to test the functions
-    image_path = "sample_image.jpg"
-    sift_keypoints, sift_descriptors = extract_sift_features(image_path)
-    orb_keypoints, orb_descriptors = extract_orb_features(image_path)
+    folder_path = '/home/rajiv/Github/Py-Photogrammetry/Data'
+    # relative_paths = [os.path.relpath(os.path.join(folder_path, item), start=os.getcwd()) for item in os.listdir(folder_path)]
 
-    # Process and use the extracted features and descriptors as needed
+    # image_path = relative_paths[0]
+
+    image = cv2.imread(os.path.join(folder_path, os.listdir(folder_path)[0]))
+    dimensions = image.shape
+    orb_keypoints, orb_descriptors = descriptors_of_folder(folder_path, 1000)
+
+    # test individual image extraction
+    # orb_keypoints, orb_descriptors = extract_orb_features(os.path.join(folder_path, os.listdir(folder_path)[0]), 1000)
+
+    # display the keypoints of the first image in the folder
+    img_keypoints = cv2.drawKeypoints(image, orb_keypoints[0], None, dimensions, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) 
+
+    cv2.namedWindow('keypoints', cv2.WINDOW_NORMAL)
+    cv2.imshow('keypoints', img_keypoints)
+    cv2.resizeWindow('keypoints', int(dimensions[1]/5), int(dimensions[0]/5))
+
+    cv2.waitKey(0) # wait until keypress
+    cv2.destroyAllWindows()
 
