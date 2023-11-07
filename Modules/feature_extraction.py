@@ -44,25 +44,32 @@ def extract_orb_features(filepath, num_features):
 
     keypoints, descriptors = orb.detectAndCompute(img, None)
     if keypoints:
-        return list(keypoints), list(descriptors)
+        return keypoints, descriptors
     
     else:
         raise Exception(f"filepath {filepath} failed to generate keypoints")
 
-def descriptors_of_folder(folderpath, num_features=1000):
+def descriptors_of_folder(folderpath, num_features=1000, testing=False):
     """
     use feature extraction algorithm to create a list of all descriptors
+
+    Args:
+        folderpath (str): relative or absolute path to the folder containing imgs
+        num_features (int): number of feature to detect with ORB
+        testing (bool): test only a small amount of images for processing time
     """
     folder_descriptors = []
     folder_keypoints = []
     # generate list of paths to all files in folder
     files = os.listdir(folderpath)
+    if testing==True: 
+        files = files[0:5]
     for file in files:
         keypoints , descriptors = extract_orb_features(os.path.join(folderpath, file), num_features)
         folder_descriptors.append(descriptors)
         folder_keypoints.append(keypoints)
         # print("processing")
-        
+
     if len(folder_descriptors)!=len(files):
         raise Exception(f"Error in descriptor generation! Number of files {len(files)} does not match number descriptors {len(folder_descriptors)}")
     return folder_keypoints, folder_descriptors
@@ -79,9 +86,9 @@ if __name__ == "__main__":
 
     # image_path = relative_paths[0]
 
-    image = cv2.imread(os.path.join(folder_path, os.listdir(folder_path)[0]))
+    image = cv2.imread(os.path.join(folder_path, os.listdir(folder_path)[10]))
     dimensions = image.shape
-    orb_keypoints, orb_descriptors = descriptors_of_folder(folder_path, 1000)
+    orb_keypoints, orb_descriptors = descriptors_of_folder(folder_path, 1000, testing=True)
 
     # test individual image extraction
     # orb_keypoints, orb_descriptors = extract_orb_features(os.path.join(folder_path, os.listdir(folder_path)[0]), 1000)
