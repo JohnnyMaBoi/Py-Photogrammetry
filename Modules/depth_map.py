@@ -20,7 +20,6 @@ stereo camera depth - https://docs.opencv.org/3.4/dd/d53/tutorial_py_depthmap.ht
 
 https://albertarmea.com/post/opencv-stereo-camera/
 """
-# Import necessary libraries
 import cv2
 import numpy as np
 import os
@@ -57,27 +56,6 @@ def depth_between_images(img1, img2, numDisparities=128, blocksize=21):
     return disparity
 
 
-def function2(arg1, arg2):
-    """
-    Description: (A brief description of what this function does.)
-
-    Args:
-        arg1: (Description of arg1)
-        arg2: (Description of arg2)
-
-    Returns:
-        (Description of what the function returns)
-    """
-    # Implementation of the function
-    pass
-
-# Define a main function if needed
-def main():
-    """
-    Description: (A brief description of the main function, if applicable)
-    """
-    # Implementation of the main function
-    pass
 
 # You can add any module-level code here if necessary
 

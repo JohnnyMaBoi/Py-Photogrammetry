@@ -8,7 +8,6 @@ Undistort images.
 Generate EXR images.
 Override input images if needed.
 """
-# Import necessary libraries
 import cv2
 import numpy as np
 

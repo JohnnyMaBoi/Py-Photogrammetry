@@ -14,14 +14,9 @@ https://docs.opencv.org/3.4/db/d27/tutorial_py_table_of_contents_feature2d.html
 ORB overview https://docs.opencv.org/3.4/d1/d89/tutorial_py_orb.html
 feature detection and matching/classifying project https://www.youtube.com/watch?v=nnH55-zD38I&list=PLMoSUbG1Q_r8jFS04rot-3NzidnV54Z2q&index=23
 """
-# Import necessary libraries
 import cv2
 import numpy as np
 import os
-# from PyQt5.QtCore import QLibraryInfo
-# os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
-#     QLibraryInfo.PluginsPath
-# )
 
 # Define global constants if needed
 # For example, if you have feature extraction parameters:

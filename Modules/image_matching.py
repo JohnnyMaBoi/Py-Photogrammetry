@@ -30,7 +30,6 @@ from feature_extraction import descriptors_of_folder
 # For example, if you have feature extraction parameters:
 # FEATURE_EXTRACTOR = cv2.SIFT_create()
 
-# Define module-level functions and classes
 def return_best_match(descriptors, idx, idx_to_exclude=None):
     """
     Index of best descriptor match for an image based on a list of descriptors
@@ -73,27 +72,6 @@ def return_best_match(descriptors, idx, idx_to_exclude=None):
         print("failed")
 
 
-def function2(arg1, arg2):
-    """
-    Description: (A brief description of what this function does.)
-
-    Args:
-        arg1: (Description of arg1)
-        arg2: (Description of arg2)
-
-    Returns:
-        (Description of what the function returns)
-    """
-    # Implementation of the function
-    pass
-
-# Define a main function if needed
-def main():
-    """
-    Description: (A brief description of the main function, if applicable)
-    """
-    # Implementation of the main function
-    pass
 
 # You can add any module-level code here if necessary
 
