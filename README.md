@@ -1,7 +1,7 @@
 # Py-Photogrammetry
 Creating a photogrammetry pipeline to go from multiple images of an object to an STL file. 
 
-To use the pipeline, load all of your images into the "data" folder, and either run each of the implemented modules as a script which will generate a figure or use the main.ipynb script to step through each of the pipeline steps individually. 
+To use the pipeline, load all of your images into the "data" folder, and either run each of the implemented modules as a script which will generate a figure which visualizes some of the data processing which is performed by the functions in the module. 
 
 ## Project Goals
 The original goal of this project was to create a python implementation for photogrammetric scanning of real-life objects by using OpenCV. This implementation would have been based on the Meshroom Photogrammetry Pipeline. 
